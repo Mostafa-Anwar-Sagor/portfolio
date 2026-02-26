@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer className="relative z-10 border-t border-white/5">
       {/* Main footer content */}
-      <div className="max-w-6xl mx-auto px-4 py-14">
+      <div className="max-w-6xl mx-auto px-4 py-10 sm:py-14">
         <div className="grid md:grid-cols-3 gap-10 items-center">
           {/* Left: Brand */}
           <div className="flex flex-col items-center md:items-start gap-3">

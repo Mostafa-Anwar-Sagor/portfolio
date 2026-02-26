@@ -43,7 +43,7 @@ export default function About() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section id="about" className="py-32 px-4 relative scroll-mt-24">
+    <section id="about" className="py-16 sm:py-24 md:py-32 px-4 relative scroll-mt-24">
       <div className="max-w-6xl mx-auto" ref={ref}>
         <SectionHeading title="About Me" subtitle="Who I am and what I do" />
 
@@ -83,14 +83,14 @@ export default function About() {
 
         {/* Bio Card - Full Width */}
         <motion.div initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }} animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
-          transition={{ duration: 0.9, delay: 0.15 }} className="mt-10 glass rounded-3xl p-8 md:p-10 relative overflow-hidden card-shine border-glow">
+          transition={{ duration: 0.9, delay: 0.15 }} className="mt-10 glass rounded-3xl p-5 sm:p-8 md:p-10 relative overflow-hidden card-shine border-glow">
           <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(90deg, #6C63FF, #00D4FF, #FF6584)' }} />
 
           <div className="flex flex-col items-center text-center">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">Mostafa Anwar</h3>
-            <p className="text-secondary font-semibold text-base mb-4">{profile.title}</p>
-            <p className="text-gray-300 leading-relaxed text-base mb-6 max-w-3xl">{profile.bio}</p>
-            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-400">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1">Mostafa Anwar</h3>
+            <p className="text-secondary font-semibold text-sm sm:text-base mb-4">{profile.title}</p>
+            <p className="text-gray-300 leading-relaxed text-sm sm:text-base mb-6 max-w-3xl">{profile.bio}</p>
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs sm:text-sm text-gray-400">
               <span className="flex items-center gap-1.5">
                 <FaGraduationCap className="text-primary" />
                 Bachelor of Computer Science (Data Science)
@@ -109,10 +109,10 @@ export default function About() {
             <span className="w-8 h-[2px] bg-gradient-to-r from-primary to-secondary rounded-full" />
             What I Do
           </motion.h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {highlights.map((h, i) => (
               <motion.div key={h.title} variants={item}
-                className="glass rounded-2xl p-6 glass-hover card-shine group cursor-default relative overflow-hidden"
+                className="glass rounded-2xl p-5 sm:p-6 glass-hover card-shine group cursor-default relative overflow-hidden"
                 whileHover={{ y: -6, scale: 1.02 }}>
                 <div className="absolute top-0 left-0 w-full h-1 opacity-70" style={{ background: `linear-gradient(90deg, ${h.color}, transparent)` }} />
                 <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
@@ -131,7 +131,7 @@ export default function About() {
           {/* Tech Stack */}
           <motion.div initial={{ opacity: 0, x: -30 }} animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="glass rounded-2xl p-6 relative overflow-hidden">
+            className="glass rounded-2xl p-5 sm:p-6 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-primary via-secondary to-transparent" />
             <h3 className="text-sm font-semibold text-gray-300 mb-5 flex items-center gap-2 uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -156,7 +156,7 @@ export default function About() {
           {/* Soft Skills */}
           <motion.div initial={{ opacity: 0, x: 30 }} animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="glass rounded-2xl p-6 relative overflow-hidden">
+            className="glass rounded-2xl p-5 sm:p-6 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-accent via-primary to-transparent" />
             <h3 className="text-sm font-semibold text-gray-300 mb-5 flex items-center gap-2 uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />

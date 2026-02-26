@@ -63,11 +63,11 @@ export default function Contact() {
   const inputClass = 'w-full px-5 py-3.5 rounded-xl bg-white/[0.03] border border-white/[0.06] text-white text-sm placeholder-gray-600 focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 focus:bg-white/[0.05] transition-all duration-500 hover:border-white/10';
 
   return (
-    <section id="contact" className="py-32 px-4 relative scroll-mt-24">
+    <section id="contact" className="py-16 sm:py-24 md:py-32 px-4 relative scroll-mt-24">
       <div className="max-w-6xl mx-auto" ref={ref}>
         <SectionHeading title="Get In Touch" subtitle="Let's work together" />
 
-        <div className="grid lg:grid-cols-5 gap-10 mt-16">
+        <div className="grid lg:grid-cols-5 gap-8 sm:gap-10 mt-12 sm:mt-16">
           {/* Left: Contact Info */}
           <motion.div variants={container} initial="hidden" animate={inView ? 'visible' : 'hidden'}
             className="lg:col-span-2">
@@ -117,7 +117,7 @@ export default function Contact() {
           {/* Right: Form */}
           <motion.form initial={{ opacity: 0, x: 50, filter: 'blur(10px)' }} animate={inView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : {}}
             transition={{ duration: 0.8, delay: 0.2 }} onSubmit={handleSubmit}
-            className="lg:col-span-3 glass rounded-3xl p-8 md:p-10 relative overflow-hidden border-glow">
+            className="lg:col-span-3 glass rounded-3xl p-5 sm:p-8 md:p-10 relative overflow-hidden border-glow">
 
             {/* Top gradient accent */}
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-accent" />

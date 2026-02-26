@@ -15,14 +15,14 @@ export default function Projects() {
   const filtered = filter === 'All' ? projects : projects.filter((p) => p.category === filter);
 
   return (
-    <section id="projects" className="py-32 px-4 relative scroll-mt-24">
+    <section id="projects" className="py-16 sm:py-24 md:py-32 px-4 relative scroll-mt-24">
       <div className="max-w-7xl mx-auto" ref={ref}>
         <SectionHeading title="Featured Projects" subtitle="Production-ready systems I've built" />
 
         {/* Filter tabs */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-2 mt-12 mb-12">
+          className="flex flex-wrap justify-center gap-2 mt-10 sm:mt-12 mb-10 sm:mb-12">
           {categories.map((cat) => (
             <motion.button key={cat} onClick={() => setFilter(cat)}
               whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
@@ -36,7 +36,7 @@ export default function Projects() {
         </motion.div>
 
         {/* Project grid */}
-        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
               <motion.div layout key={project.title}
@@ -73,7 +73,7 @@ export default function Projects() {
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   <h3 className="text-lg font-bold text-white mb-1 group-hover:text-primary transition-colors leading-tight">
                     {project.title}
                   </h3>
@@ -121,7 +121,7 @@ export default function Projects() {
       {/* Project detail modal */}
       <AnimatePresence>
         {modal && (
-          <motion.div className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          <motion.div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
 
             {/* Backdrop */}
@@ -137,7 +137,7 @@ export default function Projects() {
 
               {/* Close button */}
               <button onClick={() => setModal(null)}
-                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full glass border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-primary/40 transition-all">
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-8 h-8 sm:w-10 sm:h-10 rounded-full glass border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-primary/40 transition-all">
                 <FaTimes />
               </button>
 
@@ -168,7 +168,7 @@ export default function Projects() {
               </div>
 
               {/* Body */}
-              <div className="p-6 sm:p-8">
+              <div className="p-4 sm:p-6 md:p-8">
                 {/* Description */}
                 <p className="text-gray-300 leading-relaxed mb-8">{modal.description}</p>
 

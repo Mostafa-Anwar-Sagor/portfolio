@@ -19,17 +19,17 @@ export default function Certifications() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section id="certifications" className="py-32 px-4 relative scroll-mt-24">
+    <section id="certifications" className="py-16 sm:py-24 md:py-32 px-4 relative scroll-mt-24">
       <div className="max-w-5xl mx-auto" ref={ref}>
         <SectionHeading title="Certifications" subtitle="Professional credentials" />
 
         <motion.div variants={container} initial="hidden" animate={inView ? 'visible' : 'hidden'}
-          className="grid sm:grid-cols-2 gap-6 mt-16">
+          className="grid sm:grid-cols-2 gap-4 sm:gap-6 mt-12 sm:mt-16">
           {certifications.map((cert, i) => {
             const color = certColors[i % certColors.length];
             return (
               <motion.div key={cert.title} variants={item}
-                className="glass rounded-3xl p-7 glass-hover card-shine group relative overflow-hidden cursor-default"
+                className="glass rounded-3xl p-5 sm:p-7 glass-hover card-shine group relative overflow-hidden cursor-default"
                 whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3 } }}>
 
                 {/* Gradient top accent */}

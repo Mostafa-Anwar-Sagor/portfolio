@@ -152,12 +152,12 @@ export default function VisitorCounter() {
       initial={{ opacity: 0, x: 50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 2.5, duration: 0.6 }}
-      className="fixed bottom-6 right-6 z-40"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40"
     >
       {/* Main pill */}
       <motion.button
         onClick={() => setExpanded(!expanded)}
-        className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl glass border border-primary/20 hover:border-primary/40 transition-all duration-300 cursor-pointer group shadow-lg shadow-black/30"
+        className="flex items-center gap-1.5 sm:gap-2.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-2xl glass border border-primary/20 hover:border-primary/40 transition-all duration-300 cursor-pointer group shadow-lg shadow-black/30"
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
       >
@@ -167,14 +167,14 @@ export default function VisitorCounter() {
           <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
         </span>
 
-        <span className="text-xs font-semibold text-gray-400 tabular-nums">
+        <span className="text-[10px] sm:text-xs font-semibold text-gray-400 tabular-nums">
           {activeNow} active
         </span>
 
         <span className="text-gray-600 text-[10px]">·</span>
 
         <FaUsers className="text-[10px] text-gray-500" />
-        <span className="text-xs font-semibold text-gray-400 tabular-nums">
+        <span className="text-[10px] sm:text-xs font-semibold text-gray-400 tabular-nums">
           {displayCount != null ? displayCount.toLocaleString() : '—'} visitors
         </span>
 
@@ -193,7 +193,7 @@ export default function VisitorCounter() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.25 }}
-            className="absolute bottom-14 right-0 w-64 glass rounded-2xl p-5 border border-primary/15 shadow-2xl shadow-black/40"
+            className="absolute bottom-14 right-0 w-56 sm:w-64 glass rounded-2xl p-4 sm:p-5 border border-primary/15 shadow-2xl shadow-black/40"
           >
             <h4 className="text-xs font-bold text-gray-200 mb-4 flex items-center gap-2 uppercase tracking-wider">
               <FaGlobe className="text-primary text-[10px]" />

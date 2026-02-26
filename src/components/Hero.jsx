@@ -75,8 +75,8 @@ export default function Hero() {
 
         {/* Name */}
         <motion.div variants={child} style={{ rotateX: rx, rotateY: ry }}>
-          <p className="text-xl sm:text-2xl text-gray-400 font-medium mb-3 tracking-wide">Hi, I'm</p>
-          <h1 className="hero-title text-5xl sm:text-7xl md:text-8xl font-black leading-[1.05] mb-5 tracking-tight">
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-400 font-medium mb-3 tracking-wide">Hi, I'm</p>
+          <h1 className="hero-title text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[1.05] mb-5 tracking-tight">
             <span className="name-gradient">MOSTAFA ANWAR</span>
           </h1>
         </motion.div>
@@ -92,35 +92,35 @@ export default function Hero() {
         </motion.div>
 
         {/* Subtitle */}
-        <motion.p variants={child} className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+        <motion.p variants={child} className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed px-2 sm:px-0">
           Building production-ready AI systems — from deep learning models to full-stack applications.
         </motion.p>
 
         {/* CTAs */}
-        <motion.div variants={child} className="flex flex-wrap items-center justify-center gap-4 mb-8">
+        <motion.div variants={child} className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8 px-2 sm:px-0">
           <motion.a href="#projects" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
             onClick={(e) => { e.preventDefault(); const el = document.getElementById('projects'); if(el){ window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' }); } }}
-            className="group relative px-7 py-3.5 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-bold btn-glow text-base">
+            className="group relative px-5 py-3 sm:px-7 sm:py-3.5 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-bold btn-glow text-sm sm:text-base">
             <span className="relative z-10 flex items-center gap-2">
               <FaRocket className="text-xs group-hover:animate-bounce" /> View My Work
             </span>
           </motion.a>
           <motion.a href="#contact" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
             onClick={(e) => { e.preventDefault(); const el = document.getElementById('contact'); if(el){ window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' }); } }}
-            className="px-7 py-3.5 rounded-xl glass border border-primary/30 text-gray-300 font-bold hover:border-primary/60 hover:text-white transition-all text-base hover:shadow-lg hover:shadow-primary/10">
+            className="px-5 py-3 sm:px-7 sm:py-3.5 rounded-xl glass border border-primary/30 text-gray-300 font-bold hover:border-primary/60 hover:text-white transition-all text-sm sm:text-base hover:shadow-lg hover:shadow-primary/10">
             Get In Touch
           </motion.a>
           <motion.a href={profile.resumeUrl} download target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-6 py-3.5 rounded-xl text-gray-400 hover:text-white transition-all text-base hover:bg-white/5">
+            className="flex items-center gap-2 px-4 py-3 sm:px-6 sm:py-3.5 rounded-xl text-gray-400 hover:text-white transition-all text-sm sm:text-base hover:bg-white/5">
             <HiDownload className="text-base" /> Resume
           </motion.a>
         </motion.div>
 
         {/* Socials */}
-        <motion.div variants={child} className="flex items-center justify-center gap-3 mb-8">
+        <motion.div variants={child} className="flex items-center justify-center gap-2.5 sm:gap-3 mb-8">
           {profile.socials.map((s) => (
             <motion.a key={s.label} href={s.url} target="_blank" rel="noopener noreferrer"
-              className="w-12 h-12 rounded-xl glass border border-primary/20 flex items-center justify-center text-gray-400 hover:text-white hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl glass border border-primary/20 flex items-center justify-center text-gray-400 hover:text-white hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300"
               whileHover={{ scale: 1.15, y: -4, rotate: 5 }} whileTap={{ scale: 0.9 }} title={s.label}>
               <s.icon className="text-sm" />
             </motion.a>
@@ -128,16 +128,16 @@ export default function Hero() {
         </motion.div>
 
         {/* Stats */}
-        <motion.div variants={child} className="grid grid-cols-4 gap-4 max-w-2xl mx-auto mb-8">
+        <motion.div variants={child} className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-2xl mx-auto mb-8 px-2 sm:px-0">
           {stats.map((stat, i) => (
-            <motion.div key={stat.label} className="glass rounded-xl p-3 text-center cursor-default group hover:border-primary/40 transition-all duration-300"
+            <motion.div key={stat.label} className="glass rounded-xl p-3 sm:p-4 text-center cursor-default group hover:border-primary/40 transition-all duration-300"
               whileHover={{ y: -4, scale: 1.02 }}>
-              <motion.div className="text-3xl font-black gradient-text mb-1"
+              <motion.div className="text-2xl sm:text-3xl font-black gradient-text mb-1"
                 initial={{ scale: 0 }} animate={{ scale: 1 }}
                 transition={{ delay: 1.2 + i * 0.15, type: 'spring', stiffness: 200 }}>
                 {stat.value}
               </motion.div>
-              <div className="text-xs text-gray-500 font-medium group-hover:text-gray-400 transition-colors">{stat.label}</div>
+              <div className="text-[10px] sm:text-xs text-gray-500 font-medium group-hover:text-gray-400 transition-colors">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>

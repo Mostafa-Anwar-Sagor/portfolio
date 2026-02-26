@@ -17,15 +17,15 @@ export default function Education() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section id="education" className="py-32 px-4 relative scroll-mt-24">
+    <section id="education" className="py-16 sm:py-24 md:py-32 px-4 relative scroll-mt-24">
       <div className="max-w-5xl mx-auto" ref={ref}>
         <SectionHeading title="Education" subtitle="Academic background" />
 
         <motion.div variants={container} initial="hidden" animate={inView ? 'visible' : 'hidden'}
-          className="mt-16 space-y-8">
+          className="mt-12 sm:mt-16 space-y-6 sm:space-y-8">
           {education.map((edu) => (
             <motion.div key={edu.institution} variants={item}
-              className="glass rounded-3xl p-8 md:p-10 glass-hover card-shine relative overflow-hidden group"
+              className="glass rounded-3xl p-5 sm:p-8 md:p-10 glass-hover card-shine relative overflow-hidden group"
               whileHover={{ y: -5 }}>
 
               {/* Gradient top border */}
@@ -52,7 +52,7 @@ export default function Education() {
 
                 {/* Right: Details */}
                 <div className="flex-1">
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-1">{edu.degree}</h3>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1">{edu.degree}</h3>
                   <p className="text-secondary font-semibold text-sm mb-4">{edu.major}</p>
 
                   <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mb-8">
@@ -68,7 +68,7 @@ export default function Education() {
                   </div>
 
                   {/* Coursework */}
-                  <div className="glass rounded-2xl p-6 relative overflow-hidden">
+                  <div className="glass rounded-2xl p-4 sm:p-6 relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-secondary via-primary to-transparent" />
                     <div className="flex items-center gap-2 mb-4">
                       <FaBook className="text-secondary text-xs" />

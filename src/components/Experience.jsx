@@ -17,12 +17,12 @@ export default function Experience() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section id="experience" className="py-32 px-4 relative scroll-mt-24">
+    <section id="experience" className="py-16 sm:py-24 md:py-32 px-4 relative scroll-mt-24">
       <div className="max-w-5xl mx-auto" ref={ref}>
         <SectionHeading title="Experience" subtitle="Professional journey so far" />
 
         <motion.div variants={container} initial="hidden" animate={inView ? 'visible' : 'hidden'}
-          className="mt-16 space-y-8">
+          className="mt-12 sm:mt-16 space-y-6 sm:space-y-8">
           {experience.map((exp, i) => (
             <motion.div key={exp.company} variants={item}
               className="relative pl-8 md:pl-14 group">
@@ -44,7 +44,7 @@ export default function Experience() {
                 </div>
               </motion.div>
 
-              <motion.div className="glass rounded-3xl p-7 md:p-9 glass-hover card-shine relative overflow-hidden"
+              <motion.div className="glass rounded-3xl p-5 sm:p-7 md:p-9 glass-hover card-shine relative overflow-hidden"
                 whileHover={{ y: -5, transition: { duration: 0.3 } }}>
 
                 {/* Top gradient accent */}
@@ -58,7 +58,7 @@ export default function Experience() {
                       <FaBriefcase className="text-primary text-lg" />
                     </motion.div>
                     <div>
-                      <h3 className="text-xl font-bold text-white mb-0.5">{exp.role}</h3>
+                      <h3 className="text-lg sm:text-xl font-bold text-white mb-0.5">{exp.role}</h3>
                       <div className="text-sm text-secondary font-semibold">{exp.company}</div>
                     </div>
                   </div>

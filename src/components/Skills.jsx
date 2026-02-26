@@ -42,18 +42,18 @@ export default function Skills() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section id="skills" className="py-32 px-4 relative scroll-mt-24">
+    <section id="skills" className="py-16 sm:py-24 md:py-32 px-4 relative scroll-mt-24">
       <div className="max-w-6xl mx-auto" ref={ref}>
         <SectionHeading title="Skills & Expertise" subtitle="Technologies I work with daily" />
 
         {/* Category Tabs */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-2.5 mt-12 mb-14">
+          className="flex flex-wrap justify-center gap-2 sm:gap-2.5 mt-10 sm:mt-12 mb-10 sm:mb-14">
           {skillCategories.map((cat, i) => (
             <motion.button key={cat.title} onClick={() => setActiveTab(i)}
               whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-              className={`relative px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300 overflow-hidden ${
+              className={`relative px-4 py-2 sm:px-5 sm:py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-300 overflow-hidden ${
                 activeTab === i
                   ? 'text-white shadow-lg shadow-primary/25'
                   : 'glass text-gray-400 hover:text-white hover:border-primary/30'}`}>

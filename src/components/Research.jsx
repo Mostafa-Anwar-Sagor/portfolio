@@ -30,17 +30,17 @@ export default function Research() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section className="py-32 px-4 relative scroll-mt-24">
+    <section className="py-16 sm:py-24 md:py-32 px-4 relative scroll-mt-24">
       <div className="max-w-5xl mx-auto" ref={ref}>
         <SectionHeading title="Research" subtitle="Academic research contributions" />
 
         <motion.div variants={container} initial="hidden" animate={inView ? 'visible' : 'hidden'}
-          className="mt-16 space-y-6">
+          className="mt-12 sm:mt-16 space-y-6">
           {research.map((r, i) => {
             const st = getStatus(r.status);
             return (
               <motion.div key={r.title} variants={item}
-                className="glass rounded-3xl p-7 md:p-8 glass-hover card-shine group relative overflow-hidden cursor-default"
+                className="glass rounded-3xl p-5 sm:p-7 md:p-8 glass-hover card-shine group relative overflow-hidden cursor-default"
                 whileHover={{ y: -5, transition: { duration: 0.3 } }}>
 
                 {/* Top accent */}

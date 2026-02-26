@@ -14,7 +14,7 @@ export default function SectionHeading({ title, subtitle }) {
   return (
     <div className="text-center mb-4" style={{ perspective: '800px' }}>
       <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }}
-        className="text-4xl sm:text-5xl md:text-6xl font-black mb-4 flex flex-wrap justify-center gap-[2px]">
+        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 flex flex-wrap justify-center gap-[1px] sm:gap-[2px]">
         {letters.map((char, i) => (
           <motion.span key={`${char}-${i}`} custom={i} variants={letterVariants}
             className="gradient-text inline-block" style={{ transformOrigin: 'bottom' }}>
