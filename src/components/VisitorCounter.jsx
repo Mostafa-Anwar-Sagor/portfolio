@@ -2,52 +2,69 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaUsers, FaChevronDown, FaChevronUp, FaCircle, FaGlobe } from 'react-icons/fa';
 
-const STORAGE_KEY = 'portfolio_visitor_id';
+const VISITOR_ID_KEY = 'portfolio_visitor_id';
+const VISITOR_COUNT_CACHE = 'portfolio_visitor_count';
 const COUNTER_NAMESPACE = 'mostafa-anwar-portfolio-live';
 const COUNTER_API = `https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}`;
-
-// Only increment counters in production (deployed site), read-only on localhost
-const isProduction = typeof window !== 'undefined' &&
-  !window.location.hostname.includes('localhost') &&
-  !window.location.hostname.includes('127.0.0.1');
 
 // Heartbeat interval for active presence tracking
 const HEARTBEAT_INTERVAL = 30000;
 
+// Retry fetch with exponential backoff
+async function fetchWithRetry(url, retries = 3) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await fetch(url);
+      if (res.ok) {
+        const data = await res.json();
+        return data;
+      }
+    } catch { /* retry */ }
+    if (i < retries - 1) await new Promise(r => setTimeout(r, 1000 * (i + 1)));
+  }
+  return null;
+}
+
 export default function VisitorCounter() {
-  const [uniqueVisitors, setUniqueVisitors] = useState(null);
+  const [uniqueVisitors, setUniqueVisitors] = useState(() => {
+    // Load cached count immediately so we never show 0
+    try {
+      const cached = localStorage.getItem(VISITOR_COUNT_CACHE);
+      return cached ? parseInt(cached, 10) : null;
+    } catch { return null; }
+  });
   const [activeNow, setActiveNow] = useState(1);
   const [expanded, setExpanded] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [pulse, setPulse] = useState(false);
   const heartbeatRef = useRef(null);
+  const visitorRefreshRef = useRef(null);
 
-  // Send heartbeat to track active presence via rolling minute counters
+  // Save visitor count to localStorage cache
+  const cacheCount = useCallback((count) => {
+    if (count != null && count > 0) {
+      try { localStorage.setItem(VISITOR_COUNT_CACHE, String(count)); } catch {}
+    }
+  }, []);
+
+  // Send heartbeat to track active presence
   const sendHeartbeat = useCallback(async () => {
     try {
       const minuteKey = Math.floor(Date.now() / 60000);
       const prevMinuteKey = minuteKey - 1;
 
-      // Only increment in production
-      if (isProduction) {
-        await fetch(`${COUNTER_API}/active_${minuteKey}/up`).catch(() => {});
-      }
+      // Always increment heartbeat
+      await fetchWithRetry(`${COUNTER_API}/active_${minuteKey}/up`);
 
-      // Read current + previous minute for active count estimate
+      // Read current + previous minute for active count
       let currentCount = 0;
       let prevCount = 0;
 
-      try {
-        const res = await fetch(`${COUNTER_API}/active_${minuteKey}`);
-        const data = await res.json();
-        currentCount = data.count || 0;
-      } catch { currentCount = 1; }
+      const currentData = await fetchWithRetry(`${COUNTER_API}/active_${minuteKey}`);
+      if (currentData) currentCount = currentData.count || 0;
 
-      try {
-        const res = await fetch(`${COUNTER_API}/active_${prevMinuteKey}`);
-        const data = await res.json();
-        prevCount = data.count || 0;
-      } catch { prevCount = 0; }
+      const prevData = await fetchWithRetry(`${COUNTER_API}/active_${prevMinuteKey}`);
+      if (prevData) prevCount = prevData.count || 0;
 
       // Estimate unique active users (each user sends ~2 heartbeats per minute)
       const totalHeartbeats = currentCount + Math.floor(prevCount * 0.5);
@@ -58,32 +75,41 @@ export default function VisitorCounter() {
     }
   }, []);
 
-  // Fetch unique visitors
+  // Fetch and/or increment unique visitors
   const fetchCounts = useCallback(async () => {
     try {
-      // Track unique visitors (only increment in production)
-      const isNewVisitor = !localStorage.getItem(STORAGE_KEY);
-      if (isNewVisitor && isProduction) {
-        localStorage.setItem(STORAGE_KEY, `v_${Date.now()}_${Math.random().toString(36).slice(2)}`);
-        try {
-          const uniqueRes = await fetch(`${COUNTER_API}/unique/up`);
-          const uniqueData = await uniqueRes.json();
-          setUniqueVisitors(uniqueData.count || 0);
-        } catch { setUniqueVisitors(0); }
-      } else {
-        try {
-          const uniqueRes = await fetch(`${COUNTER_API}/unique`);
-          const uniqueData = await uniqueRes.json();
-          setUniqueVisitors(uniqueData.count || 0);
-        } catch { setUniqueVisitors(0); }
-      }
+      const existingId = localStorage.getItem(VISITOR_ID_KEY);
+      const isNewVisitor = !existingId;
 
-      setLoaded(true);
+      if (isNewVisitor) {
+        // New visitor — increment counter
+        localStorage.setItem(VISITOR_ID_KEY, `v_${Date.now()}_${Math.random().toString(36).slice(2)}`);
+        const data = await fetchWithRetry(`${COUNTER_API}/unique/up`);
+        if (data && data.count > 0) {
+          setUniqueVisitors(data.count);
+          cacheCount(data.count);
+        } else {
+          // Increment failed, try reading
+          const readData = await fetchWithRetry(`${COUNTER_API}/unique`);
+          if (readData && readData.count > 0) {
+            setUniqueVisitors(readData.count);
+            cacheCount(readData.count);
+          }
+        }
+      } else {
+        // Returning visitor — just read the count
+        const data = await fetchWithRetry(`${COUNTER_API}/unique`);
+        if (data && data.count > 0) {
+          setUniqueVisitors(data.count);
+          cacheCount(data.count);
+        }
+        // If fetch fails, keep the cached value (already loaded from state init)
+      }
     } catch {
-      setUniqueVisitors(0);
-      setLoaded(true);
+      // Keep whatever cached value we have — do NOT set to 0
     }
-  }, []);
+    setLoaded(true);
+  }, [cacheCount]);
 
   useEffect(() => {
     fetchCounts();
@@ -97,12 +123,12 @@ export default function VisitorCounter() {
     }, HEARTBEAT_INTERVAL);
 
     // Refresh unique visitors every 60s
-    const visitorRefresh = setInterval(async () => {
-      try {
-        const res = await fetch(`${COUNTER_API}/unique`);
-        const data = await res.json();
-        setUniqueVisitors(data.count || 0);
-      } catch {}
+    visitorRefreshRef.current = setInterval(async () => {
+      const data = await fetchWithRetry(`${COUNTER_API}/unique`);
+      if (data && data.count > 0) {
+        setUniqueVisitors(data.count);
+        cacheCount(data.count);
+      }
     }, 60000);
 
     const onUnload = () => {
@@ -112,12 +138,14 @@ export default function VisitorCounter() {
 
     return () => {
       clearInterval(heartbeatRef.current);
-      clearInterval(visitorRefresh);
+      clearInterval(visitorRefreshRef.current);
       window.removeEventListener('beforeunload', onUnload);
     };
-  }, [fetchCounts, sendHeartbeat]);
+  }, [fetchCounts, sendHeartbeat, cacheCount]);
 
-  if (!loaded) return null;
+  if (!loaded && uniqueVisitors == null) return null;
+
+  const displayCount = uniqueVisitors != null && uniqueVisitors > 0 ? uniqueVisitors : null;
 
   return (
     <motion.div
@@ -147,7 +175,7 @@ export default function VisitorCounter() {
 
         <FaUsers className="text-[10px] text-gray-500" />
         <span className="text-xs font-semibold text-gray-400 tabular-nums">
-          {uniqueVisitors != null ? uniqueVisitors.toLocaleString() : '—'} visitors
+          {displayCount != null ? displayCount.toLocaleString() : '—'} visitors
         </span>
 
         {expanded ? (
@@ -208,12 +236,12 @@ export default function VisitorCounter() {
                   <span className="text-xs text-gray-400 font-medium">Total Visitors</span>
                 </div>
                 <motion.span
-                  key={uniqueVisitors}
+                  key={displayCount}
                   initial={{ scale: 1.2 }}
                   animate={{ scale: 1 }}
                   className="text-sm font-bold text-secondary tabular-nums"
                 >
-                  {uniqueVisitors != null ? uniqueVisitors.toLocaleString() : '—'}
+                  {displayCount != null ? displayCount.toLocaleString() : '—'}
                 </motion.span>
               </div>
             </div>

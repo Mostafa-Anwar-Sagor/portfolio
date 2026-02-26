@@ -212,7 +212,7 @@ export const projects = [
       'WebSocket-based live streaming',
     ],
     category: 'Full-Stack AI',
-    image: 'https://images.unsplash.com/photo-1574375927938-d5a98e8d7e28?w=600&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=600&h=400&fit=crop',
   },
   {
     title: 'Enterprise CRM & Project Management SaaS',
