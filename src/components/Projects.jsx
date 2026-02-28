@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaGithub, FaExternalLinkAlt, FaChevronRight, FaTimes, FaArrowRight, FaChevronDown, FaChevronUp } from 'react-icons/fa';
@@ -14,12 +14,17 @@ export default function Projects() {
   const [showAll, setShowAll] = useState(false);
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
 
+  const handleFilter = useCallback((cat) => {
+    setFilter(cat);
+    setShowAll(false);
+  }, []);
+
   const allFiltered = filter === 'All' ? projects : projects.filter((p) => p.category === filter);
   const filtered = showAll ? allFiltered : allFiltered.slice(0, INITIAL_COUNT);
   const hasMore = allFiltered.length > INITIAL_COUNT;
 
   return (
-    <section id="projects" className="py-16 sm:py-24 md:py-32 px-4 relative scroll-mt-24">
+    <section id="projects" className="py-16 sm:py-24 md:py-32 px-4 relative scroll-mt-24 overflow-hidden">
       <div className="max-w-7xl mx-auto" ref={ref}>
         <SectionHeading title="Featured Projects" subtitle="Production-ready systems I've built" />
 
@@ -28,7 +33,7 @@ export default function Projects() {
           transition={{ delay: 0.3 }}
           className="flex flex-wrap justify-center gap-2 mt-10 sm:mt-12 mb-10 sm:mb-12">
           {categories.map((cat) => (
-            <motion.button key={cat} onClick={() => setFilter(cat)}
+            <motion.button key={cat} onClick={() => handleFilter(cat)}
               whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
               className={`px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300 ${
                 filter === cat
@@ -39,17 +44,23 @@ export default function Projects() {
           ))}
         </motion.div>
 
-        {/* Project grid */}
-        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
-          <AnimatePresence mode="popLayout">
+        {/* Project grid — key on filter+showAll forces clean re-render on category switch */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={filter + String(showAll)}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.35, ease: 'easeInOut' }}
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
             {filtered.map((project, i) => (
-              <motion.div layout key={project.title}
-                initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, scale: 0.9, filter: 'blur(6px)' }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
+              <motion.div key={project.title}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.07, ease: 'easeOut' }}
                 className="project-card glass rounded-3xl overflow-hidden group cursor-pointer relative tilt-card"
                 onClick={() => setModal(project)}
-                whileHover={{ y: -10 }}>
+                whileHover={{ y: -10, transition: { duration: 0.25 } }}>
 
                 {/* Image section */}
                 <div className="relative h-48 overflow-hidden">
@@ -118,14 +129,14 @@ export default function Projects() {
                   style={{ background: `linear-gradient(90deg, ${project.color}, ${project.color}50)` }} />
               </motion.div>
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </motion.div>
+        </AnimatePresence>
 
         {/* See More / See Less button */}
         {hasMore && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
             className="flex justify-center mt-10 sm:mt-14">
             <motion.button
