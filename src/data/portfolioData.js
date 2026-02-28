@@ -2,6 +2,7 @@ import {
   FaPython, FaHtml5, FaReact, FaDocker, FaAws, FaGitAlt, FaDatabase,
   FaLinkedin, FaGithub, FaEnvelope, FaPhone, FaChartLine, FaShieldAlt,
   FaVideo, FaUsers, FaBrain, FaRobot, FaGamepad, FaCloud,
+  FaShoppingCart, FaUtensils,
 } from 'react-icons/fa';
 import {
   SiDjango, SiNextdotjs, SiTensorflow, SiPytorch, SiJavascript,
@@ -233,6 +234,50 @@ export const projects = [
     ],
     category: 'ML Application',
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
+  },
+  {
+    title: 'NexMart — AI E-Commerce Platform',
+    subtitle: '7+ AI Features · Multi-Seller Marketplace',
+    description:
+      'Full-stack AI-powered e-commerce marketplace with NexBot shopping assistant, AI image search (GPT-4 Vision), smart price prediction, review sentiment analysis, personalized recommendations, Stripe checkout, real-time buyer–seller chat, flash sales, and voucher system.',
+    techs: ['React', 'TypeScript', 'Node.js', 'Express', 'Prisma', 'PostgreSQL', 'Redis', 'OpenAI GPT-4o', 'Stripe', 'Socket.io', 'Docker'],
+    icon: FaShoppingCart,
+    color: '#8B5CF6',
+    gradient: 'from-[#8B5CF6] to-[#7C3AED]',
+    github: 'https://github.com/Mostafa-Anwar-Sagor/ecommerce-website-Nexmart',
+    live: null,
+    highlights: [
+      '7 AI modules: chatbot, image search, price prediction, sentiment analysis, recommendations, description generator, smart search',
+      'Multi-seller marketplace with buyer, seller & admin roles',
+      'Stripe payment integration with 3D Secure & webhooks',
+      'Real-time chat with Socket.io & typing indicators',
+      'Seller analytics dashboard with revenue charts (Recharts)',
+      'Flash sales with real-time countdown & voucher/coupon system',
+    ],
+    category: 'Full-Stack AI',
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
+  },
+  {
+    title: 'SmartDine AI — Restaurant Platform',
+    subtitle: 'Gemini AI · Smart Ordering & Management',
+    description:
+      'AI-powered restaurant management and online ordering platform with Google Gemini chatbot, natural-language menu search, personalized food recommendations, real-time order tracking, table reservations with AI suggestions, and a full admin dashboard with revenue analytics.',
+    techs: ['React', 'Vite', 'Django', 'DRF', 'Google Gemini 2.0', 'JWT', 'Google OAuth', 'SQLite'],
+    icon: FaUtensils,
+    color: '#F97316',
+    gradient: 'from-[#F97316] to-[#EA580C]',
+    github: 'https://github.com/Mostafa-Anwar-Sagor/-SmartDine-AI-restaurant-Management',
+    live: null,
+    highlights: [
+      'AI chatbot powered by Google Gemini 2.0 Flash with menu context',
+      'Natural-language smart search — "spicy seafood under $30" parsed to structured filters',
+      'Personalized recommendations using hybrid scoring (popularity, dietary, time-of-day)',
+      'Real-time order tracking with 8-step status progression',
+      'Admin dashboard with 5 tabs: overview, orders, menu CRUD, reservations, revenue charts',
+      'Review sentiment analysis with automatic scoring (-1.0 to 1.0)',
+    ],
+    category: 'Full-Stack AI',
+    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop',
   },
 ];
 
