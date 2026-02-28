@@ -17,7 +17,7 @@ export const profile = {
   email: 'mostafa.anwar2181@gmail.com',
   phone: '+60179591714',
   linkedin: 'https://www.linkedin.com/in/mostafa-anwar-3ab665350/',
-  github: 'https://github.com/MostafaAnwar',
+  github: 'https://github.com/Mostafa-Anwar-Sagor',
   location: 'Alor Setar, Kedah, Malaysia',
   resumeUrl: '/portfolio/resume/Mostafa_resume.pdf',
   bio: `Computer Science student majoring in Data Science with a strong foundation in software engineering, artificial intelligence, and full-stack development. Passionate about building scalable, production-ready systems and leveraging machine learning to solve real-world problems. A quick learner who thrives in collaborative environments and is committed to continuous growth, clean code practices, and delivering impactful solutions.`,
@@ -30,7 +30,7 @@ export const profile = {
   ],
   socials: [
     { icon: FaLinkedin, url: 'https://www.linkedin.com/in/mostafa-anwar-3ab665350/', label: 'LinkedIn' },
-    { icon: FaGithub, url: 'https://github.com/MostafaAnwar', label: 'GitHub' },
+    { icon: FaGithub, url: 'https://github.com/Mostafa-Anwar-Sagor', label: 'GitHub' },
     { icon: FaEnvelope, url: 'mailto:mostafa.anwar2181@gmail.com', label: 'Email' },
     { icon: FaPhone, url: 'tel:+60179591714', label: 'Phone' },
   ],
@@ -124,7 +124,7 @@ export const projects = [
     icon: FaShieldAlt,
     color: '#6C63FF',
     gradient: 'from-[#6C63FF] to-[#4F46E5]',
-    github: 'https://github.com/MostafaAnwar',
+    github: 'https://github.com/Mostafa-Anwar-Sagor',
     live: null,
     highlights: [
       'ML-based threat prediction with real-time alerting',
@@ -144,7 +144,7 @@ export const projects = [
     icon: FaBrain,
     color: '#00D4FF',
     gradient: 'from-[#00D4FF] to-[#0891B2]',
-    github: 'https://github.com/MostafaAnwar',
+    github: 'https://github.com/Mostafa-Anwar-Sagor/Deepfake_video_detection_using_deep_learning',
     live: null,
     highlights: [
       '94% deepfake detection accuracy',
@@ -164,7 +164,7 @@ export const projects = [
     icon: FaGamepad,
     color: '#FF6584',
     gradient: 'from-[#FF6584] to-[#EC4899]',
-    github: 'https://github.com/MostafaAnwar',
+    github: 'https://github.com/Mostafa-Anwar-Sagor',
     live: null,
     highlights: [
       'Real-time availability tracking',
@@ -184,7 +184,7 @@ export const projects = [
     icon: FaChartLine,
     color: '#FFD93D',
     gradient: 'from-[#FFD93D] to-[#F59E0B]',
-    github: 'https://github.com/MostafaAnwar',
+    github: 'https://github.com/Mostafa-Anwar-Sagor/Full-Stack-AI-Trading-Platform',
     live: null,
     highlights: [
       '95%+ backtesting accuracy',
@@ -204,7 +204,7 @@ export const projects = [
     icon: FaVideo,
     color: '#E50914',
     gradient: 'from-[#E50914] to-[#DC2626]',
-    github: 'https://github.com/MostafaAnwar',
+    github: 'https://github.com/Mostafa-Anwar-Sagor/AI-Powered-Video-Streaming-Platform',
     live: null,
     highlights: [
       'Adaptive streaming from 360p to 4K',
@@ -224,7 +224,7 @@ export const projects = [
     icon: FaUsers,
     color: '#10B981',
     gradient: 'from-[#10B981] to-[#059669]',
-    github: 'https://github.com/MostafaAnwar',
+    github: 'https://github.com/Mostafa-Anwar-Sagor/AI-Driven-Full-Stack-CRM-Project-Management',
     live: null,
     highlights: [
       '87% AI lead scoring accuracy',
