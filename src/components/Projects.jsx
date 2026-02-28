@@ -1,18 +1,22 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaGithub, FaExternalLinkAlt, FaChevronRight, FaTimes, FaArrowRight } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaChevronRight, FaTimes, FaArrowRight, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { projects } from '../data/portfolioData';
 import SectionHeading from './SectionHeading';
 
+const INITIAL_COUNT = 6;
 const categories = ['All', ...new Set(projects.map((p) => p.category))];
 
 export default function Projects() {
   const [filter, setFilter] = useState('All');
   const [modal, setModal] = useState(null);
+  const [showAll, setShowAll] = useState(false);
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
 
-  const filtered = filter === 'All' ? projects : projects.filter((p) => p.category === filter);
+  const allFiltered = filter === 'All' ? projects : projects.filter((p) => p.category === filter);
+  const filtered = showAll ? allFiltered : allFiltered.slice(0, INITIAL_COUNT);
+  const hasMore = allFiltered.length > INITIAL_COUNT;
 
   return (
     <section id="projects" className="py-16 sm:py-24 md:py-32 px-4 relative scroll-mt-24">
@@ -116,6 +120,36 @@ export default function Projects() {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* See More / See Less button */}
+        {hasMore && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.5 }}
+            className="flex justify-center mt-10 sm:mt-14">
+            <motion.button
+              onClick={() => setShowAll(!showAll)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group flex items-center gap-2.5 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 text-white text-sm font-semibold hover:from-primary/20 hover:to-secondary/20 hover:border-primary/40 transition-all duration-300 shadow-lg shadow-primary/5 hover:shadow-primary/15">
+              {showAll ? (
+                <>
+                  Show Less
+                  <FaChevronUp className="text-xs text-primary group-hover:-translate-y-0.5 transition-transform" />
+                </>
+              ) : (
+                <>
+                  See More Projects
+                  <span className="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-[11px] font-bold">
+                    +{allFiltered.length - INITIAL_COUNT}
+                  </span>
+                  <FaChevronDown className="text-xs text-primary group-hover:translate-y-0.5 transition-transform" />
+                </>
+              )}
+            </motion.button>
+          </motion.div>
+        )}
       </div>
 
       {/* Project detail modal */}

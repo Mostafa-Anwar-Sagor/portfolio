@@ -255,7 +255,7 @@ export const projects = [
       'Flash sales with real-time countdown & voucher/coupon system',
     ],
     category: 'Full-Stack AI',
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop',
   },
   {
     title: 'SmartDine AI — Restaurant Platform',
